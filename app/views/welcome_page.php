@@ -216,7 +216,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
         .hero-sub {
             font-size: 1.15rem;
-            color: var(--text-muted);
+            color: #b83a10;
             max-width: 520px;
             margin: 0 auto 2.5rem;
             line-height: 1.7;
