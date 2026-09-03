@@ -1,30 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Users List</title>
-
+    <title>Users Table</title>
     <style>
-        body{
-            font-family: Arial;
-            padding:20px;
-        }
-
-        table{
+        table {
             border-collapse: collapse;
-            width:100%;
+            width: 80%;
+            margin: auto;
         }
 
-        table, th, td{
-            border:1px solid black;
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
         }
 
-        th, td{
-            padding:10px;
-            text-align:left;
-        }
-
-        th{
-            background:#f2f2f2;
+        h2 {
+            text-align: center;
         }
     </style>
 </head>
@@ -35,19 +27,17 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th>Name</th>
+        <th>Contact Number</th>
         <th>Email</th>
-        <th>Username</th>
     </tr>
 
     <?php foreach($users as $user): ?>
     <tr>
         <td><?= $user['id']; ?></td>
-        <td><?= $user['firstname']; ?></td>
-        <td><?= $user['lastname']; ?></td>
+        <td><?= $user['name']; ?></td>
+        <td><?= $user['contact_number']; ?></td>
         <td><?= $user['email']; ?></td>
-        <td><?= $user['username']; ?></td>
     </tr>
     <?php endforeach; ?>
 
