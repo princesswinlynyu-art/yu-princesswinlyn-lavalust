@@ -105,6 +105,6 @@ $autoload['models'] = array();
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['configs'] = array('Middleware');
+$autoload['configs'] = array('middleware');
 $autoload['libraries'] = array('database');
 ?>
