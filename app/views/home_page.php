@@ -54,6 +54,10 @@
         Users Database Table
     </a>
 
+    <a class="btn" href="<?= base_url(); ?>crud">
+    CRUD System
+    </a>
+
 </div>
 
 </body>
