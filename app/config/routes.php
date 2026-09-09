@@ -17,3 +17,9 @@ $router->get('/crud', 'CrudController::index');
 $router->get('/crud/create', 'CrudController::create');
 
 $router->post('/crud/store', 'CrudController::store');
+
+$router->get('/crud/edit/{id}', 'CrudController::edit');
+
+$router->post('/crud/update/{id}', 'CrudController::update');
+
+$router->get('/crud/delete/{id}', 'CrudController::delete');

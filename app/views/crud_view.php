@@ -60,11 +60,20 @@
     <td><?= $user['contact_number']; ?></td>
     <td><?= $user['email']; ?></td>
 
-    <td>
-        <a class="btn" href="#">Edit</a>
-        <a class="btn" href="#">Delete</a>
-    </td>
-</tr>
+<td>
+
+    <a class="btn"
+       href="<?= site_url('crud/edit/' . $user['id']); ?>">
+       Edit
+    </a>
+
+    <a class="btn"
+       href="<?= site_url('crud/delete/' . $user['id']); ?>"
+       onclick="return confirm('Delete this user?')">
+       Delete
+    </a>
+
+</td>
 
 <?php endforeach; ?>
 
