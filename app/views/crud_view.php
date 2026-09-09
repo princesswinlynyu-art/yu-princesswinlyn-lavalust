@@ -5,7 +5,7 @@
 
     <style>
         body{
-            font-family: Arial, sans-serif;
+            font-family: Arial;
             padding:20px;
         }
 
@@ -14,10 +14,9 @@
             border-collapse:collapse;
         }
 
-        th, td{
+        th,td{
             border:1px solid #ccc;
             padding:10px;
-            text-align:left;
         }
 
         th{
@@ -31,11 +30,7 @@
             background:#3498db;
             color:white;
             border-radius:5px;
-            margin-right:5px;
-        }
-
-        .btn:hover{
-            background:#2980b9;
+            display:inline-block;
         }
     </style>
 </head>
@@ -44,11 +39,7 @@
 <h1>CRUD System</h1>
 
 <p>
-    <p><?= base_url(); ?>crud/create</p>
-
-<a class="btn" href="/LavaLust/public/crud/create">
-    Add User
-</a>
+    <a class="btn" href="<?= site_url('crud/create'); ?>">Add User</a>
 </p>
 
 <table>
