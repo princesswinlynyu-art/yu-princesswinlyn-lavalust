@@ -8,7 +8,17 @@ class ProductController extends Controller
     {
         $this->call->model('ProductModel');
 
-        $data['products'] = $this->ProductModel->all();
+        $data['products'] = [];
+        $data['product_error'] = false;
+
+        try
+        {
+            $data['products'] = $this->ProductModel->all() ?: [];
+        }
+        catch (Throwable $exception)
+        {
+            $data['product_error'] = true;
+        }
 
         $this->call->view('products_view', $data);
     }

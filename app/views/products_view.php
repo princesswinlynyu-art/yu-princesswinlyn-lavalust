@@ -48,6 +48,10 @@
     </a>
 </p>
 
+<?php if ($product_error): ?>
+<p>Products are not available yet. Please make sure the products table has been migrated.</p>
+<?php endif; ?>
+
 <table>
 
 <tr>
