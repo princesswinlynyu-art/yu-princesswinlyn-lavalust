@@ -91,6 +91,6 @@ $router->get('/products/delete/{id}', 'ProductController::delete')
 
        $router->get('/test-session', 'AuthController::testSession');
 
-       $router->get('/test', function() {
-    die('TEST PAGE WORKING');
+$router->get('/hello', function () {
+    echo 'HELLO RENDER';
 });
