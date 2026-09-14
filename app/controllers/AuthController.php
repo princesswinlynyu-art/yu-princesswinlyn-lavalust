@@ -73,7 +73,7 @@ class AuthController extends Controller
     {
         $this->session->sess_destroy();
 
-        header('Location: ' . base_url() . 'login');
+        header('Location: ' . base_url());
         exit;
     }
 }

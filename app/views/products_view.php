@@ -36,6 +36,10 @@
         .delete{
             background:#e74c3c;
         }
+
+        .logout{
+            background:#555;
+        }
     </style>
 </head>
 <body>
@@ -45,6 +49,9 @@
 <p>
     <a class="btn" href="<?= site_url('products/create'); ?>">
         Add Product
+    </a>
+    <a class="btn logout" href="<?= site_url('logout'); ?>">
+        Log Out
     </a>
 </p>
 
