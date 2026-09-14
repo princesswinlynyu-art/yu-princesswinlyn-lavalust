@@ -37,6 +37,11 @@ class AuthController extends Controller
 
     public function authenticate()
     {
+        if (session_status() === PHP_SESSION_NONE)
+        {
+            session_start();
+        }
+
         $this->call->model('AccountModel');
 
         $username = $_POST['username'];
@@ -46,10 +51,7 @@ class AuthController extends Controller
 
         if ($user && password_verify($password, $user['password']))
         {
-            if(session_status() === PHP_SESSION_NONE)
-            {
-                  session_start();
-            }
+            session_regenerate_id(true);
             $_SESSION['logged_in'] = true;
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
@@ -63,6 +65,12 @@ class AuthController extends Controller
 
     public function logout()
     {
+        if (session_status() === PHP_SESSION_NONE)
+        {
+            session_start();
+        }
+
+        $_SESSION = array();
         session_destroy();
 
         header('Location: ' . base_url() . 'login');
