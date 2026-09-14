@@ -19,12 +19,22 @@
             padding:10px;
         }
 
+        th{
+            background:#3498db;
+            color:white;
+        }
+
         .btn{
             padding:8px 12px;
             background:#3498db;
             color:white;
             text-decoration:none;
             border-radius:5px;
+            display:inline-block;
+        }
+
+        .delete{
+            background:#e74c3c;
         }
     </style>
 </head>
@@ -46,6 +56,7 @@
     <th>Description</th>
     <th>Price</th>
     <th>Quantity</th>
+    <th>Actions</th>
 </tr>
 
 <?php foreach($products as $product): ?>
@@ -56,6 +67,19 @@
     <td><?= $product['description']; ?></td>
     <td><?= $product['price']; ?></td>
     <td><?= $product['quantity']; ?></td>
+
+    <td>
+        <a class="btn"
+           href="<?= site_url('products/edit/'.$product['id']); ?>">
+           Edit
+        </a>
+
+        <a class="btn delete"
+           href="<?= site_url('products/delete/'.$product['id']); ?>"
+           onclick="return confirm('Delete this product?')">
+           Delete
+        </a>
+    </td>
 </tr>
 
 <?php endforeach; ?>
