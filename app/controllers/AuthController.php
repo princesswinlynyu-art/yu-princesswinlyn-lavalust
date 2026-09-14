@@ -64,4 +64,10 @@ class AuthController extends Controller
         header('Location: ' . base_url() . 'login');
         exit;
     }
+
+    public function testSession()
+    {
+        echo '<pre>';
+        print_r($_SESSION);
+    }
 }

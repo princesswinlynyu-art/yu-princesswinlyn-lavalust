@@ -88,3 +88,5 @@ $router->post('/products/update/{id}', 'ProductController::update')
 
 $router->get('/products/delete/{id}', 'ProductController::delete')
        ->middleware('auth');
+
+       $router->get('/test-session', 'AuthController::testSession');
