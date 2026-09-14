@@ -6,13 +6,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $this->call->model('ProductModel');
-
         $data['products'] = [];
         $data['product_error'] = false;
 
         try
         {
+            $this->call->model('ProductModel');
             $data['products'] = $this->ProductModel->all() ?: [];
         }
         catch (Throwable $exception)
