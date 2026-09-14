@@ -90,3 +90,7 @@ $router->get('/products/delete/{id}', 'ProductController::delete')
        ->middleware('auth');
 
        $router->get('/test-session', 'AuthController::testSession');
+
+       $router->get('/test', function() {
+    die('TEST PAGE WORKING');
+});
