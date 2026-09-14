@@ -58,6 +58,10 @@
     CRUD System
     </a>
 
+    <a class="btn" href="<?= site_url('lab5'); ?>">
+    LAB 5
+    </a>
+
 </div>
 
 </body>
