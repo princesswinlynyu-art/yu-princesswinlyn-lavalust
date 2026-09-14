@@ -21,24 +21,15 @@ class AuthController extends Controller
 
     public function store()
     {
-        try
-        {
-            $this->call->model('AccountModel');
+        $this->call->model('AccountModel');
 
-            $data = array(
-                'fullname' => $_POST['fullname'],
-                'username' => $_POST['username'],
-                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
-            );
+        $data = array(
+            'fullname' => $_POST['fullname'],
+            'username' => $_POST['username'],
+            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+        );
 
-            $this->AccountModel->insert($data);
-        }
-        catch (Throwable $exception)
-        {
-            http_response_code(500);
-            echo '<h2>Registration failed</h2><p>Please verify that the accounts table exists in the database.</p>';
-            return;
-        }
+        $this->AccountModel->insert($data);
 
         header('Location: ' . base_url() . 'login');
         exit;
@@ -46,11 +37,6 @@ class AuthController extends Controller
 
     public function authenticate()
     {
-        if (session_status() === PHP_SESSION_NONE)
-        {
-            session_start();
-        }
-
         $this->call->model('AccountModel');
 
         $username = $_POST['username'];
@@ -60,7 +46,6 @@ class AuthController extends Controller
 
         if ($user && password_verify($password, $user['password']))
         {
-            session_regenerate_id(true);
             $_SESSION['logged_in'] = true;
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
@@ -69,26 +54,16 @@ class AuthController extends Controller
             exit;
         }
 
-        echo "<h2>Invalid Username or Password</h2>";
+        echo '<h2>Invalid Username or Password</h2>';
     }
 
     public function logout()
     {
-        if (session_status() === PHP_SESSION_NONE)
-        {
-            session_start();
-        }
-
         $_SESSION = array();
+
         session_destroy();
 
         header('Location: ' . base_url() . 'login');
         exit;
-    }
-
-    public function testSession()
-    {
-        echo '<pre>';
-        print_r($_SESSION);
     }
 }
