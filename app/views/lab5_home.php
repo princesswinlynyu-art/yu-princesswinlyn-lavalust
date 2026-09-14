@@ -1,37 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LAB 5</title>
 
     <style>
-
-        body{
-            font-family:Arial;
-            background:#f4f6f9;
-            text-align:center;
-            padding:40px;
-        }
-
-        .container{
-            background:white;
-            max-width:600px;
-            margin:auto;
-            padding:30px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,.1);
-        }
-
-        .btn{
-            display:block;
-            width:250px;
-            margin:15px auto;
-            padding:15px;
-            background:#3498db;
-            color:white;
-            text-decoration:none;
-            border-radius:8px;
-        }
-
+        :root{--ink:#202124;--muted:#6b7280;--line:#e5e7eb}
+        *{box-sizing:border-box}
+        body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;color:var(--ink);background:#fff;font-family:Arial,sans-serif}
+        .container{width:min(560px,100%);padding:42px;border:1px solid var(--line);border-radius:6px}
+        .eyebrow{margin:0 0 12px;color:var(--muted);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+        h1{margin:0 0 30px;font-size:38px;font-weight:600;letter-spacing:-1px}
+        .links{display:grid;gap:1px;border:1px solid var(--line);background:var(--line)}
+        .btn{padding:17px;background:#fff;color:var(--ink);text-decoration:none;font-size:15px}
+        .btn:first-child{background:var(--ink);color:#fff}
+        .btn:hover{opacity:.8}
     </style>
 
 </head>
@@ -39,8 +22,10 @@
 
 <div class="container">
 
-<h1>LAB 5</h1>
+<p class="eyebrow">Authentication and products</p>
+<h1>Lab 5</h1>
 
+<div class="links">
 <a class="btn" href="<?= base_url(); ?>login">
     Login
 </a>
@@ -56,6 +41,7 @@
 <a class="btn" href="<?= base_url(); ?>">
     Back Home
 </a>
+</div>
 
 </div>
 

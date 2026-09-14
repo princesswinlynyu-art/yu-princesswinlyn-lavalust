@@ -105,8 +105,6 @@
 
     <p class="eyebrow">BSIT 3F6</p>
     <h1>Princess Winlyn M. Yu</h1>
-    <p class="program">Coursework and project workspace</p>
-
     <a class="lab5" href="<?= site_url('lab5'); ?>">
         <span><strong>Lab 5</strong><br>Authentication and products</span>
         <span class="arrow" aria-hidden="true">&rarr;</span>
