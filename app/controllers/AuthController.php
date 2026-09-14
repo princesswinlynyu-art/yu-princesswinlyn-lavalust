@@ -42,9 +42,7 @@ class AuthController extends Controller
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $user = $this->AccountModel
-                     ->where('username', $username)
-                     ->first();
+        $user = $this->AccountModel->getByUsername($username);
 
         if ($user && password_verify($password, $user['password']))
         {
@@ -56,7 +54,7 @@ class AuthController extends Controller
             exit;
         }
 
-        echo "Invalid Username or Password";
+        echo "<h2>Invalid Username or Password</h2>";
     }
 
     public function logout()
