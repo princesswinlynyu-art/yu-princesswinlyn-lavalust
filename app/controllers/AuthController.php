@@ -21,15 +21,24 @@ class AuthController extends Controller
 
     public function store()
     {
-        $this->call->model('AccountModel');
+        try
+        {
+            $this->call->model('AccountModel');
 
-        $data = array(
-            'fullname' => $_POST['fullname'],
-            'username' => $_POST['username'],
-            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
-        );
+            $data = array(
+                'fullname' => $_POST['fullname'],
+                'username' => $_POST['username'],
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+            );
 
-        $this->AccountModel->insert($data);
+            $this->AccountModel->insert($data);
+        }
+        catch (Throwable $exception)
+        {
+            http_response_code(500);
+            echo '<h2>Registration failed</h2><p>Please verify that the accounts table exists in the database.</p>';
+            return;
+        }
 
         header('Location: ' . base_url() . 'login');
         exit;
@@ -46,9 +55,12 @@ class AuthController extends Controller
 
         if ($user && password_verify($password, $user['password']))
         {
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+            $this->session->sess_regenerate(true);
+            $this->session->set_userdata([
+                'logged_in' => true,
+                'user_id' => $user['id'],
+                'username' => $user['username']
+            ]);
 
             header('Location: ' . base_url() . 'products');
             exit;
@@ -59,9 +71,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $_SESSION = array();
-
-        session_destroy();
+        $this->session->sess_destroy();
 
         header('Location: ' . base_url() . 'login');
         exit;

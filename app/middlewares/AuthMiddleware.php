@@ -6,10 +6,11 @@ class AuthMiddleware
 {
     public function handle(Closure $next)
     {
-        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true)
+        $session = lava_instance()->session;
+
+        if (!$session->has_userdata('logged_in') || $session->userdata('logged_in') !== true)
         {
-            header('Location: ' . base_url() . 'login');
-            exit;
+            redirect('login');
         }
 
         return $next();

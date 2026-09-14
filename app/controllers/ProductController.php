@@ -6,9 +6,18 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $this->call->model('ProductModel');
+        $data['products'] = [];
+        $data['product_error'] = false;
 
-        $data['products'] = $this->ProductModel->all();
+        try
+        {
+            $this->call->model('ProductModel');
+            $data['products'] = $this->ProductModel->all() ?: [];
+        }
+        catch (Throwable $exception)
+        {
+            $data['product_error'] = true;
+        }
 
         $this->call->view('products_view', $data);
     }
