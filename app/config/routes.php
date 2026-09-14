@@ -59,3 +59,7 @@ $router->get('/login', 'AuthController::login');
 $router->get('/signup', 'AuthController::signup');     
 
 $router->post('/signup/store', 'AuthController::store');
+
+$router->post('/login/authenticate', 'AuthController::authenticate');
+
+$router->get('/logout', 'AuthController::logout');

@@ -34,4 +34,36 @@ class AuthController extends Controller
         header('Location: ' . base_url() . 'login');
         exit;
     }
+
+    public function authenticate()
+    {
+        $this->call->model('AccountModel');
+
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $user = $this->AccountModel
+                     ->where('username', $username)
+                     ->first();
+
+        if ($user && password_verify($password, $user['password']))
+        {
+            $_SESSION['logged_in'] = true;
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
+            header('Location: ' . base_url() . 'products');
+            exit;
+        }
+
+        echo "Invalid Username or Password";
+    }
+
+    public function logout()
+    {
+        session_destroy();
+
+        header('Location: ' . base_url() . 'login');
+        exit;
+    }
 }
