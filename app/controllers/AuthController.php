@@ -46,6 +46,10 @@ class AuthController extends Controller
 
         if ($user && password_verify($password, $user['password']))
         {
+            if(session_status() === PHP_SESSION_NONE)
+            {
+                  session_start();
+            }
             $_SESSION['logged_in'] = true;
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];

@@ -6,7 +6,15 @@ class AuthMiddleware
 {
     public function handle()
     {
-        if (!isset($_SESSION['logged_in']))
+        if(session_status() === PHP_SESSION_NONE)
+        {
+            session_start();
+        }
+
+        if(
+            !isset($_SESSION['logged_in']) ||
+            $_SESSION['logged_in'] !== true
+        )
         {
             header('Location: ' . base_url() . 'login');
             exit;
