@@ -18,4 +18,20 @@ class AuthController extends Controller
     {
         $this->call->view('login');
     }
+
+    public function store()
+    {
+        $this->call->model('AccountModel');
+
+        $data = array(
+            'fullname' => $_POST['fullname'],
+            'username' => $_POST['username'],
+            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+        );
+
+        $this->AccountModel->insert($data);
+
+        header('Location: ' . base_url() . 'login');
+        exit;
+    }
 }

@@ -56,4 +56,6 @@ $router->get('/lab5', 'AuthController::index');
 
 $router->get('/login', 'AuthController::login');
 
-$router->get('/signup', 'AuthController::signup');       
+$router->get('/signup', 'AuthController::signup');     
+
+$router->post('/signup/store', 'AuthController::store');
