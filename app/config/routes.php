@@ -63,3 +63,9 @@ $router->post('/signup/store', 'AuthController::store');
 $router->post('/login/authenticate', 'AuthController::authenticate');
 
 $router->get('/logout', 'AuthController::logout');
+
+$router->get('/products', 'ProductController::index');
+
+$router->get('/products/create', 'ProductController::create');
+
+$router->post('/products/store', 'ProductController::store');
