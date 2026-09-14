@@ -21,15 +21,24 @@ class AuthController extends Controller
 
     public function store()
     {
-        $this->call->model('AccountModel');
+        try
+        {
+            $this->call->model('AccountModel');
 
-        $data = array(
-            'fullname' => $_POST['fullname'],
-            'username' => $_POST['username'],
-            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
-        );
+            $data = array(
+                'fullname' => $_POST['fullname'],
+                'username' => $_POST['username'],
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+            );
 
-        $this->AccountModel->insert($data);
+            $this->AccountModel->insert($data);
+        }
+        catch (Throwable $exception)
+        {
+            http_response_code(500);
+            echo '<h2>Registration failed</h2><p>Please verify that the accounts table exists in the database.</p>';
+            return;
+        }
 
         header('Location: ' . base_url() . 'login');
         exit;
