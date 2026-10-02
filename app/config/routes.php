@@ -4,20 +4,11 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 /** @var object $router **/
 
-/*
-|--------------------------------------------------------------------------
-| HOME
-|--------------------------------------------------------------------------
-*/
 
 $router->get('/', 'HomeController::index');
 
 
-/*
-|--------------------------------------------------------------------------
-| STUDENT
-|--------------------------------------------------------------------------
-*/
+
 
 $router->get('/student', 'StudentController::index');
 
@@ -25,20 +16,10 @@ $router->get('/student/profile', 'StudentController::profile')
        ->middleware('student');
 
 
-/*
-|--------------------------------------------------------------------------
-| USERS
-|--------------------------------------------------------------------------
-*/
 
 $router->get('/users', 'UsersController::index');
 
 
-/*
-|--------------------------------------------------------------------------
-| LAB 4 - USERS CRUD
-|--------------------------------------------------------------------------
-*/
 
 $router->get('/crud', 'CrudController::index');
 
@@ -53,11 +34,6 @@ $router->post('/crud/update/{id}', 'CrudController::update');
 $router->get('/crud/delete/{id}', 'CrudController::delete');
 
 
-/*
-|--------------------------------------------------------------------------
-| LAB 5 - AUTHENTICATION
-|--------------------------------------------------------------------------
-*/
 
 $router->get('/lab5', 'AuthController::index');
 
@@ -72,11 +48,6 @@ $router->post('/login/authenticate', 'AuthController::authenticate');
 $router->get('/logout', 'AuthController::logout');
 
 
-/*
-|--------------------------------------------------------------------------
-| LAB 5 - PRODUCT CRUD
-|--------------------------------------------------------------------------
-*/
 
 $router->get('/products', 'ProductController::index')
        ->middleware('auth');
