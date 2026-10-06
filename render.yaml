@@ -10,7 +10,7 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_URL
-        value: https://lavalust-product-api.onrender.com/
+        value: https://yu-princesswinlyn-lavalust.onrender.com/
       - key: FRONTEND_URL
         value: https://lavalust-product-frontend.onrender.com
       - key: APP_KEY
@@ -45,4 +45,4 @@ services:
     staticPublishPath: ./frontend/dist
     envVars:
       - key: VITE_API_BASE_URL
-        value: https://lavalust-product-api.onrender.com/api
+        value: https://yu-princesswinlyn-lavalust.onrender.com/api
