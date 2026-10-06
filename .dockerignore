@@ -1,0 +1,10 @@
+.env
+.git
+.github
+frontend/node_modules
+frontend/dist
+node_modules
+runtime/logs
+runtime/cache
+runtime/session
+*.log

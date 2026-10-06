@@ -8,16 +8,6 @@ class AccountModel extends Model
 
     public function getByUsername($username)
     {
-        $accounts = $this->all();
-
-        foreach ($accounts as $account)
-        {
-            if ($account['username'] == $username)
-            {
-                return $account;
-            }
-        }
-
-        return null;
+        return $this->find_by('username', $username);
     }
 }

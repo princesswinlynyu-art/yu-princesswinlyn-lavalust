@@ -211,19 +211,43 @@ class Api
      */
     public function body()
     {
+        $raw = trim((string) file_get_contents('php://input'));
         $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
 
-        if (stripos($contentType, 'application/json') !== false) {
-            $input = json_decode(file_get_contents('php://input'), true);
-            return is_array($input) ? $this->sanitize_input($input) : [];
+        if ($raw !== '') {
+            if (stripos($contentType, 'application/json') !== false || preg_match('/^\s*[\[{]/', $raw)) {
+                $input = json_decode($raw, true);
+                if (is_array($input)) {
+                    return $this->sanitize_input($input);
+                }
+
+                if (preg_match('/^\s*\{.*\}\s*$/', $raw) && strpos($raw, '"') === false) {
+                    preg_match_all('/([A-Za-z0-9_-]+)\s*:\s*([^,}]+)/', $raw, $matches, PREG_SET_ORDER);
+
+                    if (!empty($matches)) {
+                        $normalized = [];
+                        foreach ($matches as $match) {
+                            $normalized[$match[1]] = trim($match[2]);
+                        }
+
+                        if (!empty($normalized)) {
+                            return $this->sanitize_input($normalized);
+                        }
+                    }
+                }
+            }
+
+            parse_str($raw, $formData);
+            if (!empty($formData)) {
+                return $this->sanitize_input($formData);
+            }
         }
 
-        if ($_POST) {
+        if (!empty($_POST)) {
             return $this->sanitize_input($_POST);
         }
 
-        parse_str(file_get_contents('php://input'), $formData);
-        return $this->sanitize_input($formData ?? []);
+        return [];
     }
 
     /**

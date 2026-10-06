@@ -1,4 +1,45 @@
-# LavaLust Framework
+# LavaLust Product Inventory — Laboratory Exercise 6
+
+Authenticated product CRUD built with the LavaLust API, MySQL, and a React + Vite client.
+
+## Local setup
+
+1. Copy `.env.example` to `.env` and fill in the Aiven MySQL host, port, database, username, password, and downloaded CA certificate path. Keep `.env` private; it is ignored by Git.
+2. Generate the application key with `php lava key:generate`. Generate two separate API secrets with `php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"` and put them in `JWT_SECRET` and `REFRESH_TOKEN_KEY` in `.env`.
+3. Start the LavaLust API from the project root with `php lava serve`. The default local API URL is `http://127.0.0.1:3000/api`.
+4. Install and start the React client:
+
+   ```powershell
+   cd frontend
+   Copy-Item .env.example .env.local
+   npm install
+   npm run dev
+   ```
+
+5. Open `http://localhost:5173`, create an account, sign in, then add, edit, and delete products. If the API uses another address, set `VITE_API_BASE_URL` in `frontend/.env.local` to its `/api` URL.
+6. Apply the schema using the LavaLust migration CLI: `php lava migration status` followed by `php lava migration run`. This creates the migration, account, and product tables and aligns existing product tables with the exercise schema.
+
+The API requires a bearer token for every product endpoint. The React app stores that short-lived token in browser local storage and sends it with API requests. Database access stays on the PHP backend.
+
+## API routes
+
+| Method | Route | Access |
+| --- | --- | --- |
+| POST | `/api/register` | Public; creates an account |
+| POST | `/api/login` | Public; returns a JWT |
+| GET | `/api/products` | Bearer token |
+| GET | `/api/products/{id}` | Bearer token |
+| POST | `/api/products` | Bearer token |
+| PUT or PATCH | `/api/products/{id}` | Bearer token |
+| DELETE | `/api/products/{id}` | Bearer token |
+
+## Render deployment
+
+The root `render.yaml` defines a PHP Docker web service and a React static site. Create both services from this Blueprint, then supply the Aiven `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME` values when Render asks for the unsynced environment variables. The blueprint generates `APP_KEY`, `JWT_SECRET`, and `REFRESH_TOKEN_KEY`, sets the frontend origin for CORS, and points the API at the included public Aiven CA certificate. Render exposes uploaded Docker secret files at runtime; if you use a secret file for the CA, set `DB_SSL_CA` to its `/etc/secrets/...` path.
+
+The React static site builds with `npm ci && npm run build` and publishes `frontend/dist`. Its public `VITE_API_BASE_URL` points to the API; the browser never receives database credentials. Render's Docker web services must bind HTTP on `0.0.0.0`; the included Apache image listens on port 80, which Render can detect and route to.
+
+Rotate any database password that has been exposed, and never commit `.env`, secret keys, or CA private material. The checked-in CA certificate is public trust material; database credentials are not.
 
 > A lightweight, fast PHP framework built for developers who want clean MVC architecture without unnecessary complexity or performance overhead.
 

@@ -66,3 +66,54 @@ $router->post('/products/update/{id}', 'ProductController::update')
 
 $router->get('/products/delete/{id}', 'ProductController::delete')
        ->middleware('auth');
+
+
+/*
+|--------------------------------------------------------------------------
+| API ROUTES
+|--------------------------------------------------------------------------
+*/
+
+$router->post('/api/login', 'ProductApiController::login');
+$router->post('/api/register', 'ProductApiController::register');
+
+$router->get('/api/products', 'ProductApiController::index');
+$router->get('/api/products/{id}', 'ProductApiController::show');
+$router->post('/api/products', 'ProductApiController::store');
+$router->put('/api/products/{id}', 'ProductApiController::update');
+$router->patch('/api/products/{id}', 'ProductApiController::patch');
+$router->delete('/api/products/{id}', 'ProductApiController::delete');
+
+// Let the API library answer browser CORS preflight requests before the
+// method-specific API handlers are reached.
+$router->options('/api/login', 'ProductApiController::login');
+$router->options('/api/register', 'ProductApiController::register');
+$router->options('/api/products', 'ProductApiController::index');
+$router->options('/api/products/{id}', 'ProductApiController::show');
+
+$router->get('/api-demo', 'ProductApiController::demo');
+
+
+/*
+|--------------------------------------------------------------------------
+| MIGRATION ROUTES
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/create-migration/{migration_class}',
+             'MigrationController::create_migration');
+
+$router->get('/migrate',
+             'MigrationController::migrate');
+
+$router->get('/rollback',
+             'MigrationController::rollback');
+
+$router->get('/rollback-all',
+             'MigrationController::rollback_all');
+
+$router->get('/refresh',
+             'MigrationController::refresh');
+
+$router->get('/status',
+             'MigrationController::status');

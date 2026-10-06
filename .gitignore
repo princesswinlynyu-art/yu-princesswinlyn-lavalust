@@ -8,6 +8,9 @@
 # Dependencies
 vendor/
 app/vendor/
+node_modules/
+frontend/dist/
+frontend/.env.local
 composer.lock
 
 # Cache & Logs

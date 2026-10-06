@@ -110,6 +110,11 @@
         <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
 
+    <a class="lab5" href="<?= htmlspecialchars(getenv('FRONTEND_URL') ?: 'http://localhost:5173', ENT_QUOTES, 'UTF-8'); ?>" style="margin-top:12px;background:#465442">
+        <span><strong>Lab 6 · Product inventory</strong><br>React app with authenticated LavaLust API</span>
+        <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+
     <nav class="secondary" aria-label="Other coursework">
         <a href="<?= site_url('student'); ?>">Student homepage</a>
         <a href="<?= site_url('student/profile'); ?>">Student profile</a>

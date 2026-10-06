@@ -27,7 +27,7 @@ class Create_products_table {
                 ],
                 'product_name' => [
                     'type'       => 'VARCHAR',
-                    'constraint' => 255,
+                    'constraint' => 100,
                     'null'       => FALSE,
                 ],
                 'description' => [
@@ -44,6 +44,11 @@ class Create_products_table {
                     'constraint' => 11,
                     'null'       => FALSE,
                     'default'    => 0,
+                ],
+                'created_at' => [
+                    'type'    => 'TIMESTAMP',
+                    'null'    => FALSE,
+                    'default' => 'CURRENT_TIMESTAMP',
                 ],
             ])
             ->add_key('id', primary: TRUE)

@@ -269,8 +269,15 @@ class Database {
         );
 
         if ($driver === 'mysql' && !empty($database_config['ssl_ca'])) {
-            $options[Pdo\Mysql::ATTR_SSL_CA] = $database_config['ssl_ca'];
-            $options[Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            // PHP 8.4+ exposes these options on Pdo\\Mysql. Keep the PDO
+            // aliases for PHP 8.0-8.3, which this project also supports.
+            if (class_exists('Pdo\\Mysql')) {
+                $options[\Pdo\Mysql::ATTR_SSL_CA] = $database_config['ssl_ca'];
+                $options[\Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            } else {
+                $options[PDO::MYSQL_ATTR_SSL_CA] = $database_config['ssl_ca'];
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            }
         }
 
         try {
