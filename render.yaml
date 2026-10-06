@@ -12,7 +12,7 @@ services:
       - key: APP_URL
         value: https://yu-princesswinlyn-lavalust.onrender.com/
       - key: FRONTEND_URL
-        value: https://lavalust-product-frontend.onrender.com
+        value: https://yu-princesswinlyn-lavalust.onrender.com/lab6/
       - key: APP_KEY
         generateValue: true
       - key: JWT_SECRET
@@ -20,7 +20,7 @@ services:
       - key: REFRESH_TOKEN_KEY
         generateValue: true
       - key: API_ALLOWED_ORIGINS
-        value: https://lavalust-product-frontend.onrender.com
+        value: https://yu-princesswinlyn-lavalust.onrender.com
       - key: DB_DRIVER
         value: mysql
       - key: DB_HOST
