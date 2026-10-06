@@ -1,3 +1,5 @@
+ARG PHP_VERSION=8.5
+
 FROM node:22-alpine AS frontend-build
 WORKDIR /frontend
 COPY frontend/package*.json ./
@@ -7,7 +9,6 @@ ARG VITE_API_BASE_URL=https://yu-princesswinlyn-lavalust.onrender.com/api
 ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 RUN npm run build -- --base=/lab6/
 
-ARG PHP_VERSION=8.5
 FROM php:${PHP_VERSION}-apache
 
 # Install PDO MySQL
