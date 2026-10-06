@@ -4,6 +4,7 @@ import './style.css';
 
 const API = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000/api').replace(/\/$/, '');
 const TOKEN_KEY = 'lavalust_access_token';
+const formatPHP = (amount) => new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(Number(amount) || 0);
 
 async function request(path, { token, ...options } = {}) {
   const response = await fetch(`${API}${path}`, {
@@ -181,12 +182,12 @@ function App() {
           <section className="summary-grid" aria-label="Inventory summary">
             <article className="summary-card"><span>PRODUCTS</span><strong>{products.length.toString().padStart(2, '0')}</strong><small>items in your catalogue</small></article>
             <article className="summary-card"><span>UNITS ON HAND</span><strong>{products.reduce((sum, item) => sum + Number(item.quantity), 0).toLocaleString()}</strong><small>across all products</small></article>
-            <article className="summary-card accent-card"><span>STOCK VALUE</span><strong>${totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong><small>based on current quantity</small></article>
+            <article className="summary-card accent-card"><span>STOCK VALUE</span><strong>{formatPHP(totalValue)}</strong><small>based on current quantity</small></article>
           </section>
           <section className="workspace-grid">
             <section className="panel product-panel">
               <div className="panel-heading"><div><p className="eyebrow">THE CATALOGUE</p><h2>Products <span className="count-pill">{products.length}</span></h2></div><span className="panel-mark">✳</span></div>
-              {products.length === 0 ? <div className="empty-state"><span>✳</span><h3>A fresh start.</h3><p>Add your first product and it’ll show up here.</p></div> : <div className="table-wrap"><table><thead><tr><th>PRODUCT</th><th>PRICE</th><th>IN STOCK</th><th>ADDED</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{products.map((product) => <tr key={product.id}><td><strong>{product.product_name}</strong><small>{product.description || 'No description'}</small></td><td>${Number(product.price).toFixed(2)}</td><td><span className={`stock ${Number(product.quantity) === 0 ? 'out' : ''}`}>{Number(product.quantity)} units</span></td><td>{product.created_at ? new Date(product.created_at).toLocaleDateString() : '—'}</td><td className="actions"><button aria-label={`Edit ${product.product_name}`} onClick={() => editProduct(product)}>Edit</button><button aria-label={`Delete ${product.product_name}`} onClick={() => deleteProduct(product)}>Delete</button></td></tr>)}</tbody></table></div>}
+              {products.length === 0 ? <div className="empty-state"><span>✳</span><h3>A fresh start.</h3><p>Add your first product and it’ll show up here.</p></div> : <div className="table-wrap"><table><thead><tr><th>PRODUCT</th><th>PRICE</th><th>IN STOCK</th><th>ADDED</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{products.map((product) => <tr key={product.id}><td><strong>{product.product_name}</strong><small>{product.description || 'No description'}</small></td><td>{formatPHP(product.price)}</td><td><span className={`stock ${Number(product.quantity) === 0 ? 'out' : ''}`}>{Number(product.quantity)} units</span></td><td>{product.created_at ? new Date(product.created_at).toLocaleDateString() : '—'}</td><td className="actions"><button aria-label={`Edit ${product.product_name}`} onClick={() => editProduct(product)}>Edit</button><button aria-label={`Delete ${product.product_name}`} onClick={() => deleteProduct(product)}>Delete</button></td></tr>)}</tbody></table></div>}
               <div className="table-footer"><span>SHOWING {products.length} {products.length === 1 ? 'PRODUCT' : 'PRODUCTS'}</span><button className="refresh-button" onClick={() => loadProducts().catch((error) => setNotice({ type: 'error', text: error.message }))}>↻ Refresh list</button></div>
             </section>
             <aside className="panel form-panel">
